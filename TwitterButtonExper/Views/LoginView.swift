@@ -31,7 +31,7 @@ struct LoginFlow: View {
             }
             .onChange(of: viewModel.loginState) { newState in
                 if newState == .succeeded {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                         withAnimation{
                             viewModel.selectedTab += 1
                         }
@@ -41,6 +41,13 @@ struct LoginFlow: View {
         }
     }
 }
+
+
+#Preview {
+    LoginFlow()
+//        .environment(\.colorScheme, .dark)
+}
+
 
 
 struct LoginView: View {
@@ -58,7 +65,6 @@ struct LoginView: View {
             VStack(spacing: 12) {
                 Text("Login With Email")
                     .font(.system(size: 28, weight: .bold))
-                    .foregroundStyle(.grey900)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text("Please enter a valid email and password.")
                     .font(.system(size: 18, weight: .medium))
@@ -91,19 +97,13 @@ struct LoginView: View {
                     .background(.blue400)
                     .clipShape(.rect(cornerRadius: 18))
             }
+            .disabled(viewModel.loginState != .idle)
             .buttonStyle(BouncyButtonStyle())
             Spacer()
         }
         .padding(32)
     }
 }
-
-
-
-#Preview {
-    LoginFlow()
-}
-
 
 struct OnboardingHeader: View {
     

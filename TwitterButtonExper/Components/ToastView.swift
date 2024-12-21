@@ -10,51 +10,19 @@ import SwiftUI
 
 struct ToastView: View {
     
+    @Environment(\.colorScheme) var colorScheme
     @Binding var loadingState: LoadingState
-    @State private var isActive: Bool = false
+    @State private var isVisible: Bool = false
     
-    var body: some View {
-        HStack(spacing: 10){
-            ToastStatusIcon(loadingState: $loadingState)
-                .transition(.scale)
-            Text(buttonLabel)
-                .font(.system(size: 20, weight: .bold))
-                .foregroundStyle(.grey900)
-                .contentTransition(.interpolate)
-                .transition(.scale.combined(with: .blurReplace))
-        }
-        .frame(height: 48)
-        .padding(.leading, 12)
-        .padding(.trailing, 24)
-        .background(.white)
-        .clipShape(.capsule)
-        .shadow(color: .black.opacity(0.1), radius: 12, x: 0, y: 6)
-        .offset(y: isActive ? 8 : -140)
-        .opacity(isActive ? 1 : 0)
-        .animation(.snappy(duration: 0.4), value: isActive)
-        .animation(.bouncy(duration: 0.3), value: loadingState)
-        .onChange(of: loadingState) {
-            showToast()
-        }
+    private let feedbackGenerator = UINotificationFeedbackGenerator()
+    
+    let showHideDuration: TimeInterval = 0.4
+    
+    var backgroundColor: Color {
+        Color(colorScheme == .light ? UIColor.systemBackground : UIColor.secondarySystemBackground)
     }
     
-    func showToast() {
-        switch loadingState {
-        case .idle:
-            isActive = false
-        case .loading:
-            isActive = true
-        case .succeeded, .failed:
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                isActive = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
-                    loadingState = .idle
-                }
-            }
-        }
-    }
-    
-    var buttonLabel: String {
+    var toastLabel: String {
         switch loadingState {
         case .idle, .loading:
             "Confirming"
@@ -65,16 +33,52 @@ struct ToastView: View {
         }
     }
     
-    var backgroundColor: Color {
+    var body: some View {
+        HStack(spacing: 10){
+            ToastStatusIcon(loadingState: $loadingState)
+                .transition(.scale)
+            Text(toastLabel)
+                .font(.system(size: 20, weight: .bold))
+                .contentTransition(.interpolate)
+                .transition(.scale.combined(with: .blurReplace))
+        }
+        .frame(height: 48)
+        .padding(.leading, 12)
+        .padding(.trailing, 24)
+        .background(backgroundColor)
+        .clipShape(.capsule)
+        .shadow(color: .black.opacity(0.1), radius: 12, x: 0, y: 6)
+        .offset(y: isVisible ? 8 : -140)
+        .opacity(isVisible ? 1 : 0)
+        .animation(.snappy(duration: showHideDuration), value: isVisible) // In-Out Animation
+        .animation(.bouncy(duration: 0.3), value: loadingState) // State Morphing Animation
+        .onChange(of: loadingState) {
+            handleStateChange()
+        }
+    }
+    
+    func handleStateChange() {
         switch loadingState {
         case .idle:
-                .blue
+            isVisible = false
         case .loading:
-                .blue
+            isVisible = true
         case .succeeded:
-                .green
+            feedbackGenerator.notificationOccurred(.success)
+            hideToast(after: 1.2)
         case .failed:
-                .red
+            feedbackGenerator.notificationOccurred(.error)
+            hideToast(after: 1.2)
+        }
+    }
+    
+    private func hideToast(after delay: TimeInterval) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            isVisible = false
+            // Back to idle once is hiddennn
+            DispatchQueue.main.asyncAfter(deadline: .now() + showHideDuration) {
+                loadingState = .idle
+            }
         }
     }
 }
@@ -84,11 +88,9 @@ struct ToastView: View {
 struct ToastStatusIcon: View {
     
     @Binding var loadingState: LoadingState
-    
     @State private var trimEnd: CGFloat = 0.0
-    @State private var isAnimating = false
     
-    let color: Color = .blue400
+    let color: Color = .green500
     
     var isLoading: Bool {
         loadingState == .loading
@@ -98,7 +100,7 @@ struct ToastStatusIcon: View {
         ZStack {
             switch loadingState {
             case .idle, .loading:
-                loadingCircle(color: color)
+                loadingCircle(laodingState: $loadingState, color: color)
                     .frame(width: 20, height: 20)
                     .transition(.blurReplace)
             case .succeeded:
@@ -122,33 +124,6 @@ struct ToastStatusIcon: View {
                     .frame(width: 14, height: 14)
                     .transition(.scale)
             }
-//            if loadingState == .idle || loadingState == .loading {
-//                loadingCircle(color: color)
-//                    .frame(width: 20, height: 20)
-//                    .transition(.blurReplace)
-//            }
-//            if loadingState == .succeeded {
-//                Circle()
-//                    .fill(color)
-//                    .frame(width: 24, height: 24)
-//                    .scaleEffect(!isLoading ? 1 : 0)
-//                    .transition(.scale)
-//                CheckmarkShape()
-//                    .trim(from: 0, to: trimEnd)
-//                    .stroke(.white, style: StrokeStyle(lineWidth: 3.5, lineCap: .round, lineJoin: .round))
-//                    .frame(width: 14, height: 14)
-//            }
-//            if loadingState == .failed {
-//                Circle()
-//                    .fill(.red500)
-//                    .frame(width: 24, height: 24)
-//                    .scaleEffect(!isLoading ? 1 : 0)
-//                    .transition(.scale)
-//                ExclamationShape()
-//                    .stroke(.white, style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
-//                    .frame(width: 14, height: 14)
-//                    .transition(.scale)
-//            }
         }
         .frame(width: 24, height: 24)
         .animation(.bouncy(duration: 0.2), value: loadingState)
@@ -165,8 +140,12 @@ struct ToastStatusIcon: View {
 
 struct loadingCircle: View {
     
-    @State private var isAnimating = false
+    @Binding var laodingState: LoadingState
     let color: Color
+    
+    var isAnimating: Bool {
+        laodingState == .loading
+    }
     
     var body: some View {
         Circle()
@@ -174,10 +153,11 @@ struct loadingCircle: View {
             .stroke(style: StrokeStyle(lineWidth: 4, lineCap: .round))
             .foregroundColor(color)
             .rotationEffect(Angle(degrees: isAnimating ? 360 : 0))
-            .onAppear {
-                withAnimation(Animation.linear(duration: 0.25).repeatForever(autoreverses: false)) {
-                    isAnimating = true
-                }
-            }
+            .animation(.linear(duration: 0.2).repeatForever(autoreverses: false), value: isAnimating)
+//            .onAppear {
+//                withAnimation(Animation.linear(duration: 0.25).repeatForever(autoreverses: false)) {
+//                    isAnimating = true
+//                }
+//            }
     }
 }
