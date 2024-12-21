@@ -6,17 +6,34 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXFileReference section */
-		336007B02D148EEA0087BA1C /* TwitterButtonExper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterButtonExper.app; sourceTree = BUILT_PRODUCTS_DIR; };
-/* End PBXFileReference section */
+/* Begin PBXBuildFile section */
+		33239DDD2D15EE6900B77490 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33239DDC2D15EE6500B77490 /* ToastView.swift */; };
+		33239DE02D16064B00B77490 /* CashAppNumpad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33239DDF2D16064300B77490 /* CashAppNumpad.swift */; };
+		33239DE22D160B4F00B77490 /* ValidField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33239DE12D160B4400B77490 /* ValidField.swift */; };
+		33412A832D171A100013734F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33412A822D171A100013734F /* Extensions.swift */; };
+		336007C82D148F110087BA1C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 336007C22D148F110087BA1C /* Preview Assets.xcassets */; };
+		336007C92D148F110087BA1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 336007C42D148F110087BA1C /* Assets.xcassets */; };
+		336007CA2D148F110087BA1C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336007C52D148F110087BA1C /* ContentView.swift */; };
+		336007CB2D148F110087BA1C /* TwitterButtonExperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336007C62D148F110087BA1C /* TwitterButtonExperApp.swift */; };
+		336007D02D1492CC0087BA1C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336007CF2D1492C80087BA1C /* LoginView.swift */; };
+		33895EBD2D149BF3005D91BD /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33895EBC2D149BEA005D91BD /* LoginViewModel.swift */; };
+		33895EBF2D14A651005D91BD /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33895EBE2D14A64B005D91BD /* ButtonView.swift */; };
+/* End PBXBuildFile section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		336007B22D148EEA0087BA1C /* TwitterButtonExper */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TwitterButtonExper;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
+/* Begin PBXFileReference section */
+		33239DDC2D15EE6500B77490 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		33239DDF2D16064300B77490 /* CashAppNumpad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashAppNumpad.swift; sourceTree = "<group>"; };
+		33239DE12D160B4400B77490 /* ValidField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidField.swift; sourceTree = "<group>"; };
+		33412A822D171A100013734F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		336007B02D148EEA0087BA1C /* TwitterButtonExper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterButtonExper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		336007C22D148F110087BA1C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		336007C42D148F110087BA1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		336007C52D148F110087BA1C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		336007C62D148F110087BA1C /* TwitterButtonExperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterButtonExperApp.swift; sourceTree = "<group>"; };
+		336007CF2D1492C80087BA1C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		33895EBC2D149BEA005D91BD /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		33895EBE2D14A64B005D91BD /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		336007AD2D148EEA0087BA1C /* Frameworks */ = {
@@ -29,10 +46,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33239DDE2D15F02600B77490 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				33239DE12D160B4400B77490 /* ValidField.swift */,
+				33239DDC2D15EE6500B77490 /* ToastView.swift */,
+				33895EBE2D14A64B005D91BD /* ButtonView.swift */,
+				33412A822D171A100013734F /* Extensions.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		336007A72D148EEA0087BA1C = {
 			isa = PBXGroup;
 			children = (
-				336007B22D148EEA0087BA1C /* TwitterButtonExper */,
+				336007C72D148F110087BA1C /* TwitterButtonExper */,
 				336007B12D148EEA0087BA1C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +71,53 @@
 				336007B02D148EEA0087BA1C /* TwitterButtonExper.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		336007C32D148F110087BA1C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				336007C22D148F110087BA1C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		336007C72D148F110087BA1C /* TwitterButtonExper */ = {
+			isa = PBXGroup;
+			children = (
+				336007C62D148F110087BA1C /* TwitterButtonExperApp.swift */,
+				336007C52D148F110087BA1C /* ContentView.swift */,
+				336007CC2D14915F0087BA1C /* Models */,
+				336007CD2D14916A0087BA1C /* ViewModels */,
+				336007CE2D1491740087BA1C /* Views */,
+				33239DDE2D15F02600B77490 /* Components */,
+				336007C32D148F110087BA1C /* Preview Content */,
+				336007C42D148F110087BA1C /* Assets.xcassets */,
+			);
+			path = TwitterButtonExper;
+			sourceTree = "<group>";
+		};
+		336007CC2D14915F0087BA1C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		336007CD2D14916A0087BA1C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				33895EBC2D149BEA005D91BD /* LoginViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		336007CE2D1491740087BA1C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				33239DDF2D16064300B77490 /* CashAppNumpad.swift */,
+				336007CF2D1492C80087BA1C /* LoginView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,9 +134,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				336007B22D148EEA0087BA1C /* TwitterButtonExper */,
 			);
 			name = TwitterButtonExper;
 			packageProductDependencies = (
@@ -109,6 +181,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				336007C82D148F110087BA1C /* Preview Assets.xcassets in Resources */,
+				336007C92D148F110087BA1C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +193,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33895EBD2D149BF3005D91BD /* LoginViewModel.swift in Sources */,
+				33412A832D171A100013734F /* Extensions.swift in Sources */,
+				33239DE02D16064B00B77490 /* CashAppNumpad.swift in Sources */,
+				336007D02D1492CC0087BA1C /* LoginView.swift in Sources */,
+				33895EBF2D14A651005D91BD /* ButtonView.swift in Sources */,
+				336007CA2D148F110087BA1C /* ContentView.swift in Sources */,
+				33239DDD2D15EE6900B77490 /* ToastView.swift in Sources */,
+				336007CB2D148F110087BA1C /* TwitterButtonExperApp.swift in Sources */,
+				33239DE22D160B4F00B77490 /* ValidField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
